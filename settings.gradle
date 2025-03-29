@@ -1,0 +1,5 @@
+rootProject.name = 'my-grocery'
+include 'storage-service'
+include 'storage-service:api'
+findProject(':storage-service:api')?.name = 'api'
+
