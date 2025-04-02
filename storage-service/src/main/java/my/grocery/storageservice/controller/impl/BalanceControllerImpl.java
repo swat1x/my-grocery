@@ -8,6 +8,8 @@ import my.grocery.storageservice.controller.BalanceController;
 import my.grocery.storageservice.entity.ProductBalanceEntity;
 import my.grocery.storageservice.service.ProductBalanceService;
 import my.grocery.storageservice.mapper.ProductBalanceMapper;
+import my.grocery.util.exception.ServiceException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,6 +25,11 @@ public class BalanceControllerImpl implements BalanceController {
 
     @Override
     public List<ProductBalanceDTO> getActiveBalances() {
+//        throw new ServiceException(
+//                HttpStatus.BAD_REQUEST,
+//                "BAD_TEST",
+//                "123"
+//        );
         var balanceList = balanceService.getActiveBalances();
         return balanceMapper.toDTO(balanceList);
     }

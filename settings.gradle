@@ -3,3 +3,8 @@ include 'storage-service'
 include 'storage-service:api'
 findProject(':storage-service:api')?.name = 'api'
 
+include 'checkout-service'
+include 'storage-service:rest-api'
+findProject(':storage-service:rest-api')?.name = 'rest-api'
+include 'exception-module'
+

@@ -1,6 +1,6 @@
 package my.grocery.storageservice.service;
 
-import my.grocery.storageservice.data.ProductBalanceInnerDTO;
+import my.grocery.storageservice.data.ProductBalanceInnerDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,18 +8,18 @@ import java.util.UUID;
 
 public interface ProductBalanceService {
 
-    List<ProductBalanceInnerDTO> getActiveBalances();
+    List<ProductBalanceInnerDto> getActiveBalances();
 
-    ProductBalanceInnerDTO getBalanceById(UUID balanceId);
+    ProductBalanceInnerDto getBalanceById(UUID balanceId);
 
-    ProductBalanceInnerDTO getBalanceByProductId(UUID productId);
+    ProductBalanceInnerDto getBalanceByProductId(UUID productId);
 
-    Optional<ProductBalanceInnerDTO> findBalanceById(UUID balanceId);
+    Optional<ProductBalanceInnerDto> findBalanceById(UUID balanceId);
 
-    ProductBalanceInnerDTO setupBalance(UUID balanceId, double balanceValue);
+    ProductBalanceInnerDto setupBalance(UUID balanceId, double balanceValue);
 
-    ProductBalanceInnerDTO depositBalance(UUID balanceId, double depositValue);
+    ProductBalanceInnerDto depositBalance(UUID balanceId, double depositValue);
 
-    ProductBalanceInnerDTO withdrawBalance(UUID balanceId, double withdrawValue);
+    ProductBalanceInnerDto withdrawBalance(UUID balanceId, double withdrawValue);
 
 }

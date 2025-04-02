@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import my.grocery.storageservice.api.dto.ProductPositionDTO;
-import my.grocery.storageservice.data.ProductPositionInnerDTO;
+import my.grocery.storageservice.data.ProductPositionInnerDto;
 import my.grocery.storageservice.exception.type.position.DuplicateDisplayNameException;
 import my.grocery.storageservice.exception.type.position.PositionNotFoundException;
 import my.grocery.storageservice.repository.ProductPositionRepository;
@@ -27,24 +27,24 @@ public class ProductPositionServiceImpl implements ProductPositionService {
     ProductPositionRepository positionRepository;
 
     @Override
-    public List<ProductPositionInnerDTO> getActivePositions() {
+    public List<ProductPositionInnerDto> getActivePositions() {
         var positions = positionRepository.getAllActivePositions();
         return positionMapper.toInner(positions);
     }
 
     @Override
-    public ProductPositionInnerDTO getPositionById(UUID positionId) {
+    public ProductPositionInnerDto getPositionById(UUID positionId) {
         return findPositionById(positionId).orElseThrow(() -> new PositionNotFoundException(positionId));
     }
 
     @Override
-    public Optional<ProductPositionInnerDTO> findPositionById(UUID positionId) {
+    public Optional<ProductPositionInnerDto> findPositionById(UUID positionId) {
         return positionRepository.findById(positionId)
                 .map(positionMapper::toInner);
     }
 
     @Override
-    public ProductPositionInnerDTO addPosition(ProductPositionDTO positionDTO) throws DuplicateDisplayNameException {
+    public ProductPositionInnerDto addPosition(ProductPositionDTO positionDTO) throws DuplicateDisplayNameException {
         Objects.requireNonNull(positionDTO.getDisplayName(), "Display name cannot be null");
 
         var sameDisplayNameProduct = positionRepository.getProductPositionByDisplayName(positionDTO.getDisplayName());
@@ -58,13 +58,13 @@ public class ProductPositionServiceImpl implements ProductPositionService {
     }
 
     @Override
-    public ProductPositionInnerDTO patchPosition(UUID positionId, ProductPositionDTO positionDTO) throws PositionNotFoundException {
+    public ProductPositionInnerDto patchPosition(UUID positionId, ProductPositionDTO positionDTO) throws PositionNotFoundException {
         var position = getPositionById(positionId);
         position = positionMapper.merge(positionDTO, position);
         return savePosition(position);
     }
 
-    private ProductPositionInnerDTO savePosition(ProductPositionInnerDTO balance) {
+    private ProductPositionInnerDto savePosition(ProductPositionInnerDto balance) {
         var mappedEntity = positionMapper.toEntityFromInner(balance);
         var savedEntity = positionRepository.save(mappedEntity);
         return positionMapper.toInner(savedEntity);

@@ -4,7 +4,7 @@ import jakarta.persistence.LockModeType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import my.grocery.storageservice.data.ProductBalanceInnerDTO;
+import my.grocery.storageservice.data.ProductBalanceInnerDto;
 import my.grocery.storageservice.exception.type.balance.BalanceNotFoundException;
 import my.grocery.storageservice.exception.type.balance.BalanceNotPresentException;
 import my.grocery.storageservice.repository.ProductBalanceRepository;
@@ -30,31 +30,31 @@ public class ProductBalanceServiceImpl implements ProductBalanceService {
     ProductPositionService positionService;
 
     @Override
-    public List<ProductBalanceInnerDTO> getActiveBalances() {
+    public List<ProductBalanceInnerDto> getActiveBalances() {
         var balances = balanceRepository.getAllActiveBalances();
         return balanceMapper.toInner(balances);
     }
 
     @Override
-    public ProductBalanceInnerDTO getBalanceById(UUID balanceId) {
+    public ProductBalanceInnerDto getBalanceById(UUID balanceId) {
         return balanceRepository.findById(balanceId)
                 .map(balanceMapper::toInner)
                 .orElseThrow(() -> new BalanceNotFoundException(balanceId));
     }
 
     @Override
-    public ProductBalanceInnerDTO getBalanceByProductId(UUID productId) {
+    public ProductBalanceInnerDto getBalanceByProductId(UUID productId) {
         return findBalanceById(productId).orElseThrow(() -> new BalanceNotPresentException(productId));
     }
 
     @Override
-    public Optional<ProductBalanceInnerDTO> findBalanceById(UUID balanceId) {
+    public Optional<ProductBalanceInnerDto> findBalanceById(UUID balanceId) {
         return balanceRepository.findById(balanceId).map(balanceMapper::toInner);
     }
 
     @Override
     @Lock(LockModeType.WRITE)
-    public ProductBalanceInnerDTO setupBalance(UUID balanceId, double balanceValue) {
+    public ProductBalanceInnerDto setupBalance(UUID balanceId, double balanceValue) {
         var balance = getBalanceById(balanceId);
         balance.setQuantity(balanceValue);
 
@@ -63,7 +63,7 @@ public class ProductBalanceServiceImpl implements ProductBalanceService {
 
     @Override
     @Lock(LockModeType.WRITE)
-    public ProductBalanceInnerDTO depositBalance(UUID balanceId, double depositValue) {
+    public ProductBalanceInnerDto depositBalance(UUID balanceId, double depositValue) {
         var balance = getBalanceById(balanceId);
         balance.increaseQuantity(depositValue);
 
@@ -72,14 +72,14 @@ public class ProductBalanceServiceImpl implements ProductBalanceService {
 
     @Override
     @Lock(LockModeType.WRITE)
-    public ProductBalanceInnerDTO withdrawBalance(UUID balanceId, double withdrawValue) {
+    public ProductBalanceInnerDto withdrawBalance(UUID balanceId, double withdrawValue) {
         var balance = getBalanceById(balanceId);
         balance.decreaseQuantity(withdrawValue);
 
         return saveBalance(balance);
     }
 
-    private ProductBalanceInnerDTO saveBalance(ProductBalanceInnerDTO balance) {
+    private ProductBalanceInnerDto saveBalance(ProductBalanceInnerDto balance) {
         var mappedEntity = balanceMapper.toEntityFromInner(balance);
         var savedEntity = balanceRepository.save(mappedEntity);
         return balanceMapper.toInner(savedEntity);

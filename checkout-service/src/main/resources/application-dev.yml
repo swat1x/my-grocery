@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/checkout
+    username: root
+    password: banana
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+my-grocery:
+  storage-host: http://localhost:42
+
+server:
+  error:
+    include-exception: false
+    include-stacktrace: never
+    include-message: never

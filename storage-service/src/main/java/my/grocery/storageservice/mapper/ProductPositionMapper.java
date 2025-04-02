@@ -1,7 +1,7 @@
 package my.grocery.storageservice.mapper;
 
 import my.grocery.storageservice.api.dto.ProductPositionDTO;
-import my.grocery.storageservice.data.ProductPositionInnerDTO;
+import my.grocery.storageservice.data.ProductPositionInnerDto;
 import my.grocery.storageservice.entity.ProductPositionEntity;
 import org.mapstruct.*;
 
@@ -20,9 +20,9 @@ public abstract class ProductPositionMapper {
 
     /* TO INNER */
 
-    public abstract ProductPositionInnerDTO toInner(ProductPositionEntity productPosition);
+    public abstract ProductPositionInnerDto toInner(ProductPositionEntity productPosition);
 
-    public abstract List<ProductPositionInnerDTO> toInner(List<ProductPositionEntity> productPositions);
+    public abstract List<ProductPositionInnerDto> toInner(List<ProductPositionEntity> productPositions);
 
     /* TO ENTITY */
 
@@ -30,25 +30,25 @@ public abstract class ProductPositionMapper {
 
     public abstract List<ProductPositionEntity> toEntityFromDto(List<ProductPositionDTO> dto);
 
-    public abstract ProductPositionEntity toEntityFromInner(ProductPositionInnerDTO innerDTO);
+    public abstract ProductPositionEntity toEntityFromInner(ProductPositionInnerDto innerDTO);
 
-    public abstract List<ProductPositionEntity> toEntityFromInner(List<ProductPositionInnerDTO> innerDTO);
+    public abstract List<ProductPositionEntity> toEntityFromInner(List<ProductPositionInnerDto> innerDTO);
 
     /* TO DTO */
 
-    public abstract List<ProductPositionDTO> toDTO(List<ProductPositionInnerDTO> productPositionList);
+    public abstract List<ProductPositionDTO> toDTO(List<ProductPositionInnerDto> productPositionList);
 
-    public abstract ProductPositionDTO toDTO(ProductPositionInnerDTO productPosition);
+    public abstract ProductPositionDTO toDTO(ProductPositionInnerDto productPosition);
 
-    public abstract ProductPositionInnerDTO fromDTO(ProductPositionDTO dto);
+    public abstract ProductPositionInnerDto fromDTO(ProductPositionDTO dto);
 
     @Mapping(target = "id", ignore = true)
-    public abstract ProductPositionInnerDTO fromDTOSafe(ProductPositionDTO dto);
+    public abstract ProductPositionInnerDto fromDTOSafe(ProductPositionDTO dto);
 
     /* MERGE */
 
     @Mapping(target = "id", ignore = true)
-    public abstract ProductPositionInnerDTO merge(ProductPositionDTO dto, @MappingTarget ProductPositionInnerDTO entity);
+    public abstract ProductPositionInnerDto merge(ProductPositionDTO dto, @MappingTarget ProductPositionInnerDto entity);
 
 
 }

@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation project(":exception-module")
     implementation project(":storage-service:api")
 
 //    implementation "org.mapstruct.extensions.spring:mapstruct-spring-annotations:1.1.3"
